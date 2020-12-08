@@ -1,10 +1,14 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "my_galielo";
+
+// Configuration parameters
+$db_server = "localhost";
+$db_username = "root";
+$db_password = "";
+$db_name = "my_galielo";
 $tables = array(
 
-)
+);
+
+
 
 ?>
