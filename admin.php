@@ -14,16 +14,15 @@ $db_name = "my_galielo";
 // in the table
 // As a choice of the author, no removing of rows is available
 $tables = array(
-    "tornei" => array(
-        "__name" => "Lista tornei",
+    "giocatori" => array(
+        "__name" => "Lista giocatori",
         "__unique" => "ID",
-        "nome" => "nome",
-        "iscr" => "iscrizioni attive"
+        "Nome" => "Nome"
     ),
-    "p12h" => array(
-        "__name" => "Partite 12h",
+    "ccup" => array(
+        "__name" => "Coppe dei Campioni",
         "__unique" => "ID",
-        "torneo" => "ID torneo"
+        "Hidden" => "Nascosto?"
     )
 );
 
