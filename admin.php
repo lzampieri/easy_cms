@@ -104,6 +104,7 @@ if( !array_key_exists('row',$_GET) ) {
     Prego selezionare la riga che si vuole modificare<br/>
     <table><tr><th>Edit</th>
 HTML;
+    // TODO: magari qui è utile mostrare __tutti__ i campi
     foreach( array_keys($tables[$table]) as $field )
         if( ! strpos(".".substr($field,0,2),"__") )
             echo "<th>".$tables[$table][$field]."</th>";
