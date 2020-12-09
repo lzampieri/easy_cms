@@ -11,13 +11,15 @@ $db_name = "my_galielo";
 // Each element is itself an associative array, in which each key is the name of an
 // editable field and its value is the shown name, plus the '__name' field with the
 // shown name of the table and the '__unique' field with the name of the unique field
-// in the table
+// in the table. An * at the end of the shown name signal visible-but-non-editable fields.
 // As a choice of the author, no removing of rows is available
 $tables = array(
     "giocatori" => array(
         "__name" => "Lista giocatori",
         "__unique" => "ID",
-        "Nome" => "Nome"
+        "Nome" => "Nome",
+        "PuntiA" => "PuntiA*",
+        "PuntiD" => "PuntiD*"
     ),
     "ccup" => array(
         "__name" => "Coppe dei Campioni",
