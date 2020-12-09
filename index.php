@@ -76,7 +76,7 @@ if( !array_key_exists('row',$_GET) ) {
     $result = mysqli_query($db_handle,'SELECT * FROM '.$table);
     echo mysqli_error($db_handle);
     echo  <<<HTML
-    <div class="card col-md-4 mx-auto">
+    <div class="card col-md-8 mx-auto">
     Prego selezionare la riga che si vuole modificare<br/>
     <table><tr><th>Edit</th>
 HTML;
