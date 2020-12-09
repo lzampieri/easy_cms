@@ -1,6 +1,6 @@
 <?php
 // Configuration parameters
-require('config.php');
+require('../easy_cms_config.php');
 
 // Bootstrap head
 ?>

@@ -1,5 +1,5 @@
 <?php
-// An example config file, which must be saved as config.php
+// An example config file, which must be saved as ../easy_cms_config.php
 // Hashed (sha256) password to access control panel
 $access_password = "15e559ae3df4f3d8cce60e4324880aa84a0325969686a2b42325f722acdbbb9a";
 // Database connection parameters
