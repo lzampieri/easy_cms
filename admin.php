@@ -11,13 +11,15 @@ $db_name = "my_galielo";
 // Each element is itself an associative array, in which each key is the name of an
 // editable field and its value is the shown name, plus the '__name' field with the
 // shown name of the table and the '__unique' field with the name of the unique field
-// in the table
+// in the table. An * at the end of the shown name signal visible-but-non-editable fields.
 // As a choice of the author, no removing of rows is available
 $tables = array(
     "giocatori" => array(
         "__name" => "Lista giocatori",
         "__unique" => "ID",
-        "Nome" => "Nome"
+        "Nome" => "Nome",
+        "PuntiA" => "PuntiA*",
+        "PuntiD" => "PuntiD*"
     ),
     "ccup" => array(
         "__name" => "Coppe dei Campioni",
@@ -126,7 +128,8 @@ if( array_key_exists('__table',$_POST) ) {
     $sql = "UPDATE ".$_POST['__table']." SET ";
     foreach( array_keys($tables[$table]) as $field )
         if( ! strpos(".".substr($field,0,2),"__") )
-            $sql .= $field." = '".mysqli_real_escape_string($db_handle,$_POST[$field])."', ";
+            if( strpos( substr($tables[$table][$field], -1), "*") === false )
+                $sql .= $field." = '".mysqli_real_escape_string($db_handle,$_POST[$field])."', ";
     $sql = substr($sql,0,-2);
     $sql .= " WHERE ".$tables[$table]['__unique']." = ".$_POST['__row'];
     if ( mysqli_query($db_handle,$sql) ) {
@@ -144,11 +147,16 @@ echo mysqli_error($db_handle);
 $thisrow = mysqli_fetch_assoc($result);
 echo "<form class=\"card col-md-4 mx-auto\" method=\"post\">";
 foreach( array_keys($tables[$table]) as $field )
-    if( ! strpos(".".substr($field,0,2),"__") )
-        echo <<<HTML
-            <label for="$field">{$tables[$table][$field]}</label>
-            <input type="text" class="form-control" id="$field" name="$field" value="{$thisrow[$field]}">
+    if( ! strpos( ".".substr($field,0,2), "__" ) ) {
+        if( strpos( substr($tables[$table][$field], -1), "*") === false )
+            echo <<<HTML
+                <label for="$field">{$tables[$table][$field]}</label>
+                <input type="text" class="form-control" id="$field" name="$field" value="{$thisrow[$field]}" >
 HTML;
+        else echo <<<HTML
+            <p><b>{$tables[$table][$field]}:</b> {$thisrow[$field]}</p>
+HTML;
+    } 
 echo <<<HTML
     <input type="hidden" id="__table" name="__table" value="$table">
     <input type="hidden" id="__row" name="__row" value="$row">
