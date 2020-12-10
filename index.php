@@ -71,6 +71,12 @@ echo mysqli_error($db_handle);
 mysqli_select_db($db_handle, $db_name);
 echo mysqli_error($db_handle);
 
+// Check if inserted query is asked
+if( array_key_exists("insert",$_GET) ) {
+    sql($tables[$table]["__insert_query"]);
+    header('Location: ?table='.$table.'&row='.get_last_id());
+}
+
 // If no row selected, show the list of available rows
 if( !array_key_exists('row',$_GET) ) {
     $result = mysqli_query($db_handle,'SELECT * FROM '.$table);
@@ -78,9 +84,11 @@ if( !array_key_exists('row',$_GET) ) {
     echo  <<<HTML
     <div class="card col-md-8 mx-auto">
     Prego selezionare la riga che si vuole modificare<br/>
-    <table><tr><th>Edit</th>
 HTML;
-    // TODO: magari qui è utile mostrare __tutti__ i campi
+    if( array_key_exists("__insert_query", $tables[$table] ) ) {
+        echo "<a href=\"?table=".$table."&insert\"><button class=\"btn btn-primary mx-auto\">Add row</button></a>";
+    }
+    echo "<table><tr><th>Edit</th>":
     foreach( array_keys($tables[$table]) as $field )
         if( ! strpos(".".substr($field,0,2),"__") )
             echo "<th>".$tables[$table][$field]."</th>";
