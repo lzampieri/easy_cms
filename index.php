@@ -130,12 +130,17 @@ $thisrow = mysqli_fetch_assoc($result);
 echo "<form class=\"card col-md-4 mx-auto\" method=\"post\">";
 foreach( array_keys($tables[$table]) as $field )
     if( ! strpos( ".".substr($field,0,2), "__" ) ) {
-        if( strpos( substr($tables[$table][$field], -1), "*") === false )
-            echo <<<HTML
-                <label for="$field">{$tables[$table][$field]}</label>
-                <input type="text" class="form-control" id="$field" name="$field" value="{$thisrow[$field]}" >
+        if( strpos( substr($tables[$table][$field], -1), "*") === false ) {
+            if( strpos( substr($tables[$table][$field], -1), "^") === false )
+                echo <<<HTML
+                    <label for="$field">{$tables[$table][$field]}</label>
+                    <input type="text" class="form-control" id="$field" name="$field" value="{$thisrow[$field]}" >
 HTML;
-        else echo <<<HTML
+            else echo <<<HTML
+                    <label for="$field">{$tables[$table][$field]}</label>
+                    <textarea type="text" class="form-control" id="$field" name="$field" rows="5">{$thisrow[$field]}</textarea>
+HTML;
+        } else echo <<<HTML
             <p><b>{$tables[$table][$field]}:</b> {$thisrow[$field]}</p>
 HTML;
     } 

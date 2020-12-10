@@ -12,6 +12,8 @@ $db_name = "my_galielo";
 // editable field and its value is the shown name, plus the '__name' field with the
 // shown name of the table and the '__unique' field with the name of the unique field
 // in the table. An * at the end of the shown name signal visible-but-non-editable fields.
+// A ^ at the end of the shown name require a textarea for the input and edit (long fields).
+// If __insert_query element is present, also the "Add row" button is shown
 // As a choice of the author, no removing of rows is available
 $tables = array(
     "giocatori" => array(
