@@ -73,8 +73,8 @@ echo mysqli_error($db_handle);
 
 // Check if inserted query is asked
 if( array_key_exists("insert",$_GET) ) {
-    sql($tables[$table]["__insert_query"]);
-    header('Location: ?table='.$table.'&row='.get_last_id());
+    mysqli_query($db_handle,$tables[$table]["__insert_query"]);
+    header('Location: ?table='.$table.'&row='.$db_handle->insert_id);
 }
 
 // If no row selected, show the list of available rows
@@ -88,19 +88,19 @@ HTML;
     if( array_key_exists("__insert_query", $tables[$table] ) ) {
         echo "<a href=\"?table=".$table."&insert\"><button class=\"btn btn-primary mx-auto\">Add row</button></a>";
     }
-    echo "<table><tr><th>Edit</th>";
+    echo "<table class=\"table table-striped\"><thead><tr><th>Edit</th>";
     foreach( array_keys($tables[$table]) as $field )
         if( ! strpos(".".substr($field,0,2),"__") )
             echo "<th>".$tables[$table][$field]."</th>";
-    echo "</tr>";
+    echo "</tr></thead><tbody>";
     while( $row = mysqli_fetch_assoc($result) ) {
         echo "<tr><td><a href=\"?table=".$table."&row=".$row[$tables[$table]['__unique']]."\">".$row[$tables[$table]['__unique']]."</a></td>";
         foreach( array_keys($tables[$table]) as $field )
             if( ! strpos(".".substr($field,0,2),"__") )
                 echo "<td>".$row[$field]."</td>";
-        echo "<tr>";
+        echo "</tr>";
     }
-    echo "</table>";
+    echo "</tbody></table>";
     exit();
 }
 echo "<br/><a href=\"?table=".$table."\"><button class=\"btn btn-primary col-md-4\">".$tables[$table]['__name']."</button></a>";
