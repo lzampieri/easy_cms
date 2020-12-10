@@ -88,7 +88,7 @@ HTML;
     if( array_key_exists("__insert_query", $tables[$table] ) ) {
         echo "<a href=\"?table=".$table."&insert\"><button class=\"btn btn-primary mx-auto\">Add row</button></a>";
     }
-    echo "<table><tr><th>Edit</th>":
+    echo "<table><tr><th>Edit</th>";
     foreach( array_keys($tables[$table]) as $field )
         if( ! strpos(".".substr($field,0,2),"__") )
             echo "<th>".$tables[$table][$field]."</th>";
