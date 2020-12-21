@@ -116,7 +116,7 @@ if( array_key_exists('__table',$_POST) ) {
 
 // If row selected, show the row
 $row = $_GET['row'];
-$result = mysqli_query($db_handle,'SELECT * FROM '.$table.' WHERE '.$tables[$table]['__unique'].' = '.$_GET['row']);
+$result = mysqli_query($db_handle,'SELECT * FROM '.$table.' WHERE '.$tables[$table]['__unique'].' = \''.$_GET['row'].'\'');
 echo mysqli_error($db_handle);
 $thisrow = mysqli_fetch_assoc($result);
 echo "<form class=\"card col-md-4 mx-auto\" method=\"post\">";
